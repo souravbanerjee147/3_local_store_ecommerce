@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Payment Gateway</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f1f3f6;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 60px auto;
+      display: flex;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+
+    .left {
+      width: 30%;
+      background-color: #2874f0;
+      color: white;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+
+    .left h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    .left p {
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .right {
+      width: 70%;
+      padding: 30px 40px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .payment-option input[type="text"] {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 220px;
+    }
+
+    .payment-option button {
+      background-color: #2874f0;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .payment-option button:hover {
+      background-color: #1a5ed9;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .verify-result {
+      font-weight: bold;
+      margin-left: 5px;
+    }
+
+    .pay-button {
+      background-color: #ff5722;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s ease;
+      text-decoration: none;
+      margin-top: auto;
+    }
+
+    .pay-button:hover {
+      background-color: #e64a19;
+    }
+
+    .name-display {
+      font-size: 14px;
+      color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <h2>Choose Your Payment Method</h2>
+      <p>Complete your purchase securely.</p>
+    </div>
+    <div class="right">
+      <div>
+        <h3>UPI Pay</h3>
+        <div class="payment-option">
+          <input type="text" id="upi-id" placeholder="Enter your UPI ID">
+          <button onclick="validateUpi()">Verify</button>
+          <span id="upi-status" class="verify-result"></span>
+        </div>
+        <div class="name-display">Name: <strong id="upi-name"></strong></div>
+      </div>
+
+      <div>
+        <h3>Card Pay</h3>
+        <div class="payment-option">
+          <input type="text" id="card-number" placeholder="Enter your 16-digit card">
+          <button onclick="validateCard()">Verify</button>
+          <span id="card-status" class="verify-result"></span>
+        </div>
+        <div class="name-display">Cardholder: <strong id="card-name"></strong></div>
+      </div>
+
+      <div class="radio-option">
+        <input type="radio" id="cod" name="payment" value="cod">
+        <label for="cod">Cash on Delivery</label>
+      </div>
+
+      <a href="#" class="pay-button">Proceed to Pay</a>
+    </div>
+  </div>
+
+  <script>
+    function validateUpi() {
+      const upiInput = document.getElementById('upi-id');
+      const upiStatus = document.getElementById('upi-status');
+      const upiName = document.getElementById('upi-name');
+
+      const upiId = upiInput.value.trim();
+      const valid = /^[\w.-]+@[\w]+$/.test(upiId);
+
+      if (valid) {
+        upiStatus.textContent = '✅';
+        upiStatus.style.color = 'green';
+        upiName.textContent = 'Rahul Sharma';
+      } else {
+        upiStatus.textContent = '❌';
+        upiStatus.style.color = 'red';
+        upiName.textContent = '';
+      }
+    }
+
+    function validateCard() {
+      const cardInput = document.getElementById('card-number');
+      const cardStatus = document.getElementById('card-status');
+      const cardName = document.getElementById('card-name');
+
+      const cardNumber = cardInput.value.trim();
+      const valid = /^\d{16}$/.test(cardNumber);
+
+      if (valid) {
+        cardStatus.textContent = '✅';
+        cardStatus.style.color = 'green';
+        cardName.textContent = 'Amit Verma';
+      } else {
+        cardStatus.textContent = '❌';
+        cardStatus.style.color = 'red';
+        cardName.textContent = '';
+      }
+    }
+  </script>
+</body>
+</html>
